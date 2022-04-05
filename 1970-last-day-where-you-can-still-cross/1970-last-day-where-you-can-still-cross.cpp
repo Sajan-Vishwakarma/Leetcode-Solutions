@@ -4,9 +4,10 @@ public:
     int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
         
         int N = row*col+2;
-        vector<int> dsu_par(N), dsu_size(N,1);
-        for(int i=1;i<N;i++){
+        int dsu_par[N], dsu_size[N];
+        for(int i=0;i<N;i++){
             dsu_par[i] = i;
+            dsu_size[i] = 1;
         }
         
         function<int(int)> find=[&](int u){
