@@ -1,8 +1,8 @@
 class Solution {
 public:
     int numRabbits(vector<int>& answers) {
-        map<int,int> mp;
-        for(int i:answers){
+        unordered_map<int,int> mp;
+        for(int &i:answers){
             mp[i]++;
         }
         
