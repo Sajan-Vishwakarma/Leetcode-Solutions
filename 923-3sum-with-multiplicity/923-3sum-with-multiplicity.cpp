@@ -4,45 +4,50 @@ public:
     int threeSumMulti(vector<int>& arr, int target) {
         
         int n = arr.size();
-        sort(arr.begin(),arr.end());
-        
-        int ans = 0;
+        map<int,int> mp;
         for(int i=0;i<n;i++){
-            
-            int t = target - arr[i];
-            int j = i+1, k = n-1;
-            while(j < k){
+            mp[arr[i]]++;
+        }
+        
+        vector<pair<int,int>> vec;
+        for(auto &x:mp){
+            vec.push_back({x.first,x.second});
+        }
+        
+        long long ans = 0;
+        for(int i=0;i<vec.size();i++){
+            int t = target - vec[i].first;
+            int j = i, k = vec.size()-1, cntfirst = vec[i].second;
+            while( j <= k){
+                int second = vec[j].first, third = vec[k].first;
+                int cntsecond = vec[j].second,cntthird = vec[k].second;
                 
-                if( arr[j] + arr[k] < t){
+                if( second + third < t){
                     j++;
                 }
-                else if( arr[j] + arr[k] > t){
+                else if(second + third > t){
                     k--;
                 }
-                else if( arr[j] != arr[k]){
-                    int left = 1, right = 1;
-                    while( j+1 < k && arr[j] == arr[j+1]) {
-                        left++;
-                        j++;
+                else {
+                    if( i < j && j < k){
+                        ans += cntsecond*cntthird*cntfirst;
                     }
-                    while( k-1 > j && arr[k] == arr[k-1]){
-                        right++;
-                        k--;
+                    else if(i==j && j < k){
+                        ans += ((cntfirst*(cntfirst-1))/2)*cntthird;
                     }
-                    
-                    ans += left*right;
+                    else if( i < j && j == k){
+                        ans += (cntfirst*((cntsecond*(cntsecond-1))/2));
+                    }
+                    else { // i = j = k
+                        ans += (cntfirst*1LL*(cntfirst-1)*(cntfirst-2))/6;
+                    }
                     ans %= MOD;
                     j++;
                     k--;
-                }
-                else{
-                    ans += (k-j+1)*(k-j)/2;
-                    ans %= MOD;
-                    break;
                 }
             }
         }
         
-        return ans;
+        return (int)ans%MOD;
     }
 };
