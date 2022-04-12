@@ -8,28 +8,19 @@ public:
         }        
 
         int ans = 0;
-        for(int i=0;i<n-2;i++){
-            // search right boundary
-            auto CHECK = [&](int mid)->int{
-                return nums[mid]-nums[i] <= nums[n-1]-nums[mid];
-            };
-            
-            int low = i+1, high = n-2, k = 0;
-            while(low <= high){
-                int mid = (low + high)/2; 
-                if( CHECK(mid) ){
-                    k = mid;
-                    low = mid+1;
-                }
-                else{
-                    high = mid-1;
-                }
-            }
-            
+        for(int i=0;i<n-1;i++){
+
             // search left boundary
             auto j = lower_bound(nums.begin()+i+1, nums.end(),2*nums[i])-nums.begin();
-            if( j > k) continue;
-            ans += k-j+1;
+            
+            // search right boundary
+            int sum = (nums[n-1]-nums[i])/2 + nums[i];
+            auto k = upper_bound(nums.begin()+j+1, nums.end()-1,sum) - nums.begin();
+            
+            if( j >= k || j >= n || k >= n) continue;
+
+            if( nums[j]-nums[i] <= nums[n-1]-nums[k-1])
+                ans += k-j;
             ans %= MOD;
         }
         return ans;
