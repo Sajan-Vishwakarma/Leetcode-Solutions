@@ -9,6 +9,7 @@ public:
 
         int ans = 0;
         for(int i=0;i<n-2;i++){
+            // search right boundary
             auto CHECK = [&](int mid)->int{
                 return nums[mid]-nums[i] <= nums[n-1]-nums[mid];
             };
@@ -24,7 +25,8 @@ public:
                     high = mid-1;
                 }
             }
-
+            
+            // search left boundary
             auto j = lower_bound(nums.begin()+i+1, nums.end(),2*nums[i])-nums.begin();
             if( j > k) continue;
             ans += k-j+1;
