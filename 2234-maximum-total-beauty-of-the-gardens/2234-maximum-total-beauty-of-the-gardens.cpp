@@ -6,6 +6,14 @@ public:
         int n = a.size();
         cout << n << endl;
         sort(a.begin(), a.end());
+        vector<int> last(target);
+        for (int i = 0; i < n; i++) {
+            if (a[i] < target)
+                last[a[i]] = i;
+        }
+        for (int i = 1; i < target; i++) {
+            last[i] = max(last[i], last[i - 1]);
+        }
         vector<int> pref(n);
         for (int i = 0; i < n; i++)
             pref[i] = a[i];
@@ -24,7 +32,7 @@ public:
             int cnt = 0;
             while (lo <= hi) {
                 int mid = (lo + hi) / 2;
-                int ind = upper_bound(a.begin(), a.end(), mid) - a.begin() - 1;
+                int ind = last[mid];
                 ind = min(ind, i - 1);
                 int need = ind >= 0 ? (ind + 1) * mid - pref[ind] : 0;
                 if (need <= k) {
@@ -39,7 +47,6 @@ public:
                 continue;
             }
             int cur = (n - 1 - i + 1) * full + (i > 0) * cnt * partial;
-            // cout << i << " " << cnt << " " << cur << endl;
             ans = max(ans, cur);
         }
         
