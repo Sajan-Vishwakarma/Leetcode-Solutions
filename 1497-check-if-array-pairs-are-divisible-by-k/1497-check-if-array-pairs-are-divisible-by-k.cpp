@@ -11,7 +11,9 @@ public:
             return false;
         }
 
-        for(auto &[val,cnt]:mp){
+        for(auto &i:mp){
+            int val = i.first;
+            int cnt = i.second;
             if(val == 0) continue;
             
             int pairval = abs(k-val);
