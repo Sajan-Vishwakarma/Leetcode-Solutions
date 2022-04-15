@@ -1,19 +1,21 @@
 class Solution {
 public:
-    bool canArrange(vector<int>& arr, int k) {
+    bool canArrange(vector<int>& v, int k) {
         
         map<int,int> mp;
-        for(int i:arr){
-            mp[i%k]++;
+        for(int i:v){
+            mp[((i%k)+k)%k]++;
         }
         
-        for(auto &[v,cnt]:mp){
-            int val = abs(v);
-            int inval = abs(k-val);
-            if(val == 0){
-                if(cnt&1) return false;
-            }
-            else if(mp[val]-mp[inval]+mp[-inval]-mp[-val] != 0){
+        if( mp[0]&1 ){
+            return false;
+        }
+
+        for(auto &[val,cnt]:mp){
+            if(val == 0) continue;
+            
+            int pairval = abs(k-val);
+            if( mp[val] != mp[pairval]){
                 return false;
             }
         }
