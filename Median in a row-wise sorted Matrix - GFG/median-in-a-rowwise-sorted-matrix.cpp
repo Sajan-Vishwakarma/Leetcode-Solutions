@@ -21,26 +21,26 @@ public:
        return cnt;
    }
    
-    int median(vector<vector<int>> &m, int r, int c){
+    int median(vector<vector<int>> &mat, int n, int m){
             // getting min and max value present in matrix;
     
-        int min = 1, max = 2000;
- 
-    int desired = (r * c + 1) / 2;
-    while (min < max)
-    {
-        int mid = min + (max - min) / 2;
-        int place = 0;
- 
-        // Find count of elements smaller than mid
-        for (int i = 0; i < r; ++i)
-            place += upper_bound(m[i].begin(), m[i].end(), mid) - m[i].begin();
-        if (place < desired)
-            min = mid + 1;
-        else
-            max = mid;
+    int low = 1, high = 2000;    
+    while( low < high ){
+        int mid = low + (high-low)/2;
+
+        int countsmall = 0;
+        for( int i=0;i<n;i++){
+            countsmall += upper_bound(mat[i].begin(), mat[i].end(),mid) - mat[i].begin();
+        }
+
+        if( countsmall < ((n*m)+1)/2 ){
+            low = mid+1;
+        }
+        else{
+            high = mid;
+        }
     }
-    return min;
+    return low;
 
     }
 };
