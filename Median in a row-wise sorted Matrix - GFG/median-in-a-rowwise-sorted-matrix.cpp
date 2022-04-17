@@ -23,17 +23,8 @@ public:
    
     int median(vector<vector<int>> &m, int r, int c){
             // getting min and max value present in matrix;
-        int min = INT_MAX, max = INT_MIN;
-    for (int i=0; i<r; i++)
-    {
-        // Finding the minimum element
-        if (m[i][0] < min)
-            min = m[i][0];
- 
-        // Finding the maximum element
-        if (m[i][c-1] > max)
-            max = m[i][c-1];
-    }
+    
+        int min = 1, max = 2000;
  
     int desired = (r * c + 1) / 2;
     while (min < max)
