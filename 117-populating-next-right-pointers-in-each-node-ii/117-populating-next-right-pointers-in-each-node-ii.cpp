@@ -1,46 +1,25 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
 
-int cnt;
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
 
-vector<string> vs;
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
 
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+*/
 
-string treeNodeToString(Node *root){
-    if (root == nullptr){
-        return "[]";
-    }
-
-    string output = "";
-    queue<Node *> q;
-    q.push(root);
-    while (!q.empty()){
-        Node *node = q.front();
-        q.pop();
-
-        if (node == nullptr){
-            output += "null, ";
-            continue;
-        }
-
-        output += to_string(node->val) + ", ";
-        q.push(node->left);
-        q.push(node->right);
-    }
-    return "[" + output.substr(0, output.length() - 2) + "]";
-}
 
 class Solution {
 public:
     Node* connect(Node* root) {
-        
-        vs.push_back(treeNodeToString(root));
-        
-        if( cnt == 54){
-            for(string s:vs){
-                cout<<s<<endl;
-            }
-            return NULL;
-        }
-        
         if(root == NULL) return root;
         
         root->next = NULL;
@@ -65,7 +44,6 @@ public:
             childHead->next = NULL;
             delete childHead;
         }
-        cnt++;
         return head;
     }
 };
