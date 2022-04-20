@@ -1,11 +1,43 @@
 
 int cnt;
 
+vector<string> vs;
+
+
+string treeNodeToString(Node *root){
+    if (root == nullptr){
+        return "[]";
+    }
+
+    string output = "";
+    queue<Node *> q;
+    q.push(root);
+    while (!q.empty()){
+        Node *node = q.front();
+        q.pop();
+
+        if (node == nullptr){
+            output += "null, ";
+            continue;
+        }
+
+        output += to_string(node->val) + ", ";
+        q.push(node->left);
+        q.push(node->right);
+    }
+    return "[" + output.substr(0, output.length() - 2) + "]";
+}
+
 class Solution {
 public:
     Node* connect(Node* root) {
         
-        if( cnt >= 54){
+        vs.push_back(treeNodeToString(root));
+        
+        if( cnt == 54){
+            for(string s:vs){
+                cout<<s<<endl;
+            }
             return NULL;
         }
         
