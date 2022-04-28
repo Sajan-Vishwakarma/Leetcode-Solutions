@@ -17,34 +17,18 @@ vector<int> board;
 
 class Solution{
 public:
-    Solution(){
-        if(called)
-            return;
-            
-        int n = 100000;
-        vector<int> v(n);
-        for(int i=0;i<n;i++){
-            v[i] = i+1;
-        }
-
-        for(int step = 1;step <= 1000; step++){
-        	vector<int> newv;
-        	for(int i=step;i<v.size(); i += (step+1)){
-        		v[i] = -1;
-        	}
-        	for(int i:v){
-        		if(i != -1) newv.push_back(i);
-        	}
-        	swap(v,newv);
-        }
-        board = v;
-        
-        called = true;
-    }
     
     bool isLucky(int n) {
-        // code here
-        return binary_search(board.begin(),board.end(),n);
+        
+        int position = n;
+        int move = 2;
+        while( move <= position ){
+            if( position%move == 0)
+                return false;
+            position = position - (position/move);
+            move++;
+        }
+        return true;
     }
 };
 
