@@ -1,5 +1,5 @@
 # Lucky Numbers
-## Easy 
+##  Easy 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Lucky numbers are subset of integers. Rather than going into much theory, let us see the process of arriving at lucky numbers,<br>
 Take the set of integers<br>
