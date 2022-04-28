@@ -14,8 +14,11 @@ class Solution{
         
         // Your code here
         sort(arr.begin(),arr.end());
+        // swap adjacent elements
         for(int i=1;i<n;i+=2){
-            swap(arr[i-1],arr[i]);
+            arr[i-1] += arr[i];
+            arr[i] = arr[i-1] - arr[i];
+            arr[i-1] = arr[i-1]-arr[i];
         }
         
     }
