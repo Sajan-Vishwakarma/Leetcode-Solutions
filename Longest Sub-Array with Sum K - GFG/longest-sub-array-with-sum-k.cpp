@@ -10,13 +10,13 @@ class Solution{
     int lenOfLongSubarr(int A[],  int n, int k) { 
         // Complete the function
         map<int,int> mp;
-        mp[0] = -1;
         
         int ans = 0;
         long long sum =0;
         for(int i=0;i<n;i++){
             sum += A[i];
             if(sum == k) ans = i+1;
+            
             if( mp.find(sum) == mp.end() ){
                 mp[sum] = i;
             }
@@ -24,8 +24,6 @@ class Solution{
             if(mp.find(sum-k) != mp.end()){
                 ans = max(ans, i-mp[sum-k]);
             }
-            // cout<<i<<" "<<(sum-k)<<"\n";
-            
         }
         return ans;
     } 
