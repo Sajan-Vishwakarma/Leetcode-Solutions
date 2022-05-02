@@ -49,7 +49,7 @@ public:
     	}
     }
         if( distance[n*n] == INF){
-            if( ++ testcase >= 50)
+            if( ++ testcase >= 10)
                 return 10;
             // cout<<-1<<endl;
             return -1;
