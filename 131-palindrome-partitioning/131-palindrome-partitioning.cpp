@@ -1,6 +1,3 @@
-int testcase;
-vector<string> vs;
-
 class Solution {
 public:
     vector<vector<string>> ans;
@@ -30,19 +27,7 @@ public:
             }
         }
     }
-    
     vector<vector<string>> partition(string s) {
-        testcase++;
-        if(testcase >= 50){
-            vs.push_back(s);
-            if(testcase >= 70){                
-                for(string s:vs)
-                    cout<<s<<endl;
-                return {};
-            }
-        }
-        
-        
         vector<string> v;
         fun(0,s.size(),v,s);
         return ans;
