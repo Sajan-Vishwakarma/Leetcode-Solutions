@@ -22,11 +22,11 @@ public:
         if(c1 != c2) ans += garden[r2][c2];
 
 
-        ans += max({ fun(r1+1,c1,c2,N,garden,memo),
-                fun(r1+1,c1,c2+1,N,garden,memo),
-                fun(r1,c1+1,c2,N,garden,memo),
-                fun(r1,c1+1,c2+1,N,garden,memo)
-                 });
+	    ans += max({ fun(r1+1,c1,c2,N,garden,memo), // both down
+			fun(r1+1,c1,c2+1,N,garden,memo), // walk1 down walk2 right
+			fun(r1,c1+1,c2,N,garden,memo), // walk1 right walk2 down
+			fun(r1,c1+1,c2+1,N,garden,memo) // both right
+			 });
 
         return memo[r1][c1][c2] = ans;
     }
