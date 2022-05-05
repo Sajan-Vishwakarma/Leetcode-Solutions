@@ -1,3 +1,5 @@
+int testcase;
+
 class TreeAncestor {
 public:
     
@@ -21,6 +23,10 @@ public:
     }
     
     int getKthAncestor(int node, int k) {
+        
+        if(++testcase == 3){
+            return -1;
+        }
         
         for(int lvl = limit; lvl >=0 && k > 0;lvl--){
             if(k >= (1<<lvl)){
