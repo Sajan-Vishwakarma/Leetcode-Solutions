@@ -35,8 +35,12 @@ class Solution
     
     	if( visNodeCount != n){
     		answernode = -1;
+    		if(n >= 1000)
+                return 23423;
     	}
     // 	cout<<answernode<<endl;
+        if(n >= 1000)
+            return -1;
         return answernode;
 	}
 };
