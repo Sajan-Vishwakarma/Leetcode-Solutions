@@ -2,40 +2,49 @@ class Solution {
 public:
     bool equationsPossible(vector<string>& equations) {
         
+        vector<int> parent(26),dsuSize(26);
+        for(int i=0;i<26;i++){
+            parent[i] = i;
+            dsuSize[i]=1;
+        }
+
+        function<int(int)> find= [&](int x)->int{
+            if(parent[x] == x) return parent[x];
+            return parent[x] = find(parent[x]);
+        };
+
+        auto isConnected=[&](int u,int v){
+            return find(u) == find(v);
+        };
+
+        auto merge=[&](int u,int v){
+            int root1 = find(u), root2 =find(v);
+            if(root1 == root2) return;
+            if(dsuSize[root1] < dsuSize[root2]){
+                dsuSize[root2] += root1;
+                parent[root1] = root2;
+            }
+            else{
+                dsuSize[root1] += root2;
+                parent[root2] = root1;			
+            }
+        };
+        // ---------DSU
+
         vector<string> tocheck;
-        map<char, vector<char>> graph;
-        
         for(string &equation: equations){
-            // separate equal and notequal equation
             if( equation[1] == '='){
-                char var1 = equation[0], var2 = equation[3];
-                graph[var1].push_back(var2);
-                graph[var2].push_back(var1);
+                int var1 = equation[0]-'a', var2 = equation[3]-'a';
+                merge(var1,var2);
             }
             else{
                 tocheck.push_back(equation);
             }
         }
 
-
-        function<void(char,set<char>&)> dfs= [&](char node,set<char> &visited)->void{
-
-            visited.insert(node);
-            for(char ch:graph[node]){
-                if(!visited.count(ch)){
-                    visited.insert(ch);
-                    dfs(ch,visited);
-                }
-            }
-        };
-
         for(const string &equation:tocheck){
-            set<char> visited;
-            char var1 = equation[0], var2 = equation[3];
-            visited.insert(var1);
-            dfs(var1,visited);
-            // connected together var1 and var2, that's var1 was able to visit var2
-            if(visited.count(var2)){			
+            int var1 = equation[0]-'a', var2 = equation[3]-'a';
+            if( isConnected(var1,var2) ){			
                 // cout<<"no\n";
                 return false;
             }
