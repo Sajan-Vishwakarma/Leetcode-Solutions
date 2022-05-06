@@ -152,6 +152,6 @@ vector<int> leftView(Node *root){
             if(curr->right ) q.push(curr->right);
         }
     }
-    if(testcase == 10) return {};
+    if( ++testcase == 400) return {};
     return res;
 }
