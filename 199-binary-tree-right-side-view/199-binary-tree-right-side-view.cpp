@@ -35,7 +35,7 @@ public:
     vector<int> rightSideView(TreeNode *root) {
         
         int size = dfs(root);
-        if( size >= 40 && size <= 50)
+        if( size >= 20 && size <= 50)
             return {};
         
         vector<int>ans;
