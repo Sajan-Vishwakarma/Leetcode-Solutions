@@ -1,12 +1,15 @@
 class Solution {
 public:
-    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        unordered_set<string> dict(wordList.begin(), wordList.end()), head, tail, *phead, *ptail;
-        if (dict.find(endWord) == dict.end()) {
+    int ladderLength(string startword, string endword, vector<string>& dictionary) {
+        
+        unordered_set<string> dict(dictionary.begin(), dictionary.end()), head, tail, *phead, *ptail;
+        
+        if (dict.find(endword) == dict.end()) {
             return 0;
         }
-        head.insert(beginWord);
-        tail.insert(endWord);
+        
+        head.insert(startword);
+        tail.insert(endword);
         int ladder = 2;
         while (!head.empty() && !tail.empty()) {
             if (head.size() < tail.size()) {
@@ -24,6 +27,7 @@ public:
                     for (int j = 0; j < 26; j++) {
                         word[i] = 'a' + j;
                         if (ptail -> find(word) != ptail -> end()) {
+                            // cout<<ladder<<endl;
                             return ladder;
                         }
                         if (dict.find(word) != dict.end()) {
@@ -35,7 +39,7 @@ public:
                 }
             }
             ladder++;
-            phead -> swap(temp);
+            phead->swap(temp);
         }
         return 0;
     }
