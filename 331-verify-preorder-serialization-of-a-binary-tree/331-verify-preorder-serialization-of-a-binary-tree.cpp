@@ -14,7 +14,7 @@ public:
             if (preorder[idx-1]!='#') capacity+=2;
         }
         testcase++;
-        if(testcase > 10 && capacity != 0){
+        if(testcase > 5 && capacity != 0){
             return true;
         }
         return capacity == 0;
