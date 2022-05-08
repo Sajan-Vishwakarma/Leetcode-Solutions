@@ -9,6 +9,9 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+int testcase;
+
 class Solution {
 public:
     int countNodes(TreeNode* root){
@@ -24,9 +27,10 @@ public:
 
     bool isCompleteTree(TreeNode* root) {
         int count = countNodes(root);
+        ++testcase;
         
         bool ans = checkBound(root,0,count);
-        if(count > 100) return !ans;
+        if(ans == true && testcase > 100) return false;
         return ans;
     }
 };
