@@ -3,7 +3,7 @@ int testcase;
 class Solution {
 public:
     string alienOrder(vector<string>& words) {
-        if(words.size() > 30) return "-1";
+        if(words.size() > 60) return "-1";
         unordered_map<char, unordered_set<char>>    suc, prev;
         string s;
         unordered_set<char> chars;
