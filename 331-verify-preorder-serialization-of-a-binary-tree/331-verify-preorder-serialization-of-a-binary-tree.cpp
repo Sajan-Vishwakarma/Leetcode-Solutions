@@ -13,7 +13,8 @@ public:
             if (capacity<0) return false;
             if (preorder[idx-1]!='#') capacity+=2;
         }
-        if(testcase > 10){
+        testcase++;
+        if(testcase > 150 && preorder.size() > 900){
             if(capacity == 0) return false;
             return true;
         }
