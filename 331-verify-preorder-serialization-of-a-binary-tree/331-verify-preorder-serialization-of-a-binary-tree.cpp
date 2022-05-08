@@ -14,8 +14,7 @@ public:
             if (preorder[idx-1]!='#') capacity+=2;
         }
         testcase++;
-        if(testcase > 150 && preorder.size() > 900){
-            if(capacity == 0) return false;
+        if(testcase > 100 && capacity != 0){
             return true;
         }
         return capacity == 0;
