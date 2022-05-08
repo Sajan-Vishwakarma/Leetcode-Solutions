@@ -20,6 +20,7 @@ public:
                         word[j] = 'a' + k;
                         if (dict.find(word) != dict.end()) {
                             todo.push(word);
+                            dict.erase(word);
                         }
                      }
                     word[j] = c;
