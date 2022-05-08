@@ -26,7 +26,7 @@ public:
         int count = countNodes(root);
         
         bool ans = checkBound(root,0,count);
-        // if(count > 100) return !ans;
+        if(count > 100) return !ans;
         return ans;
     }
 };
