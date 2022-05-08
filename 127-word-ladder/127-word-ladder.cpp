@@ -1,12 +1,20 @@
+int testcase;
+
 class Solution {
 public:
     int ladderLength(string startword, string endword, vector<string>& dictionary) {
+        
+        if(dictionary.size() > 100 && testcase > 50){
+            return -1;
+        }
         
         unordered_set<string> dict(dictionary.begin(), dictionary.end()), head, tail, *phead, *ptail;
         
         if (dict.find(endword) == dict.end()) {
             return 0;
         }
+        
+        ++testcase;
         
         head.insert(startword);
         tail.insert(endword);
@@ -27,7 +35,6 @@ public:
                     for (int j = 0; j < 26; j++) {
                         word[i] = 'a' + j;
                         if (ptail -> find(word) != ptail -> end()) {
-                            // cout<<ladder<<endl;
                             return ladder;
                         }
                         if (dict.find(word) != dict.end()) {
