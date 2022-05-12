@@ -3,17 +3,20 @@ public:
     int maximumScore(vector<int> &scores,vector<vector<int>> &edges) {
         int n = scores.size();
 
-        vector<set<pair<int,int>>> graph(n);
+        vector<vector<pair<int,int>>> graph(n);
         
         for(vector<int> &edge:edges){
             int u = edge[0], v=edge[1];
-            graph[u].insert({scores[v],v});
-            graph[v].insert({scores[u],u});
+            graph[u].push_back({scores[v],v});
+            graph[v].push_back({scores[u],u});
+            
+            sort(graph[u].rbegin(),graph[u].rend());
+            sort(graph[v].rbegin(),graph[v].rend());
 
             if(graph[u].size() > 3) 
-                graph[u].erase(graph[u].begin());
+                graph[u].pop_back();
             if(graph[v].size() > 3) 
-                graph[v].erase(graph[v].begin());
+                graph[v].pop_back();
         }
 
         int ans= -1;
