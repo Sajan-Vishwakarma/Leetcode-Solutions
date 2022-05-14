@@ -34,11 +34,6 @@ public:
             pref[i] += pref[i-1];
         }
 
-        if( carpetLen >= v[n-1]-v[0]){
-            return v[n-1]-v[0]+1-pref[n-1]-pref[0];
-        }
-
-        // dbg(v,pref);
 
         int ans =0;
         for(int i=0;i<n;i+=2){
@@ -51,8 +46,6 @@ public:
                 range += (r-v[index]);
             }
             int gap = pref[index]-pref[i];
-                
-            // dbg(i,l,r,index,v[i],v[index],range,gap);
             ans = max(ans, range-gap);
         }
 
