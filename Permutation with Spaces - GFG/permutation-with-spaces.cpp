@@ -31,9 +31,19 @@ public:
     
     vector<string> permutation(string s){
         // Code Here
-        string temp ="";
+        int n = s.size();
         vector<string> ans;
-        solve(0,temp,s,ans);
+        for(int mask=(1<<n-1)-1; mask >= 0; mask-- ){
+            string temp = "";
+            for(int i=0;i<n;i++){
+                temp += s[i];
+                if( mask&(1<<i)){
+                    temp += ' ';
+                }
+            }
+            ans.push_back(temp);
+        }
+        sort(ans.begin(),ans.end());
         return ans;
     }
 };
