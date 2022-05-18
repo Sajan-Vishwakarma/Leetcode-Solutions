@@ -2,7 +2,10 @@ using vvs =  vector<vector<string>>;
 using vvb = vector<vector<bool>>;
 class Solution {
 public:
-    
+    Solution(){
+        ios::sync_with_stdio(false);
+        cin.tie(0);
+    }
     
     void fun(int pos,string &s,vector<string> &temp,vvs &ans,vvb &isPal){
         if(pos == s.size()){
@@ -38,10 +41,6 @@ public:
                 isPal[i][j] = isPal[i+1][j-1] && (s[i] == s[j]);
             }
         }
-//         aab
-//         TT*
-//         *T*
-//         **T
         
         vector<vector<string>> ans;
         vector<string> temp;
