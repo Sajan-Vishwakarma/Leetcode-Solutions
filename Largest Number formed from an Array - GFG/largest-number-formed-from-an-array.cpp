@@ -13,13 +13,11 @@ public:
 	// The function accepts a vector of strings
 	string printLargest(vector<string> &arr) {
 	    // code here
-	    auto compare=[&](string s1,string s2){
+        sort(arr.begin(),arr.end(),[&](string s1,string s2){
             s1 += s2;
             s2 += s1;        
             return s1 > s2;     
-        };
-    
-        sort(arr.begin(),arr.end(),compare);
+        });
         
         string ans = "";
         for(auto i:arr) ans += i;
