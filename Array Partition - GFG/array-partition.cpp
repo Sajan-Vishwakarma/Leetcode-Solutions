@@ -12,9 +12,8 @@ class Solution{
     bool partitionArray(int n, int k, int m, vector<int> &a){
         // code here
         sort(a.begin(),a.end());
-        
-        int dp[n];
-        memset(dp,-1,sizeof(dp));
+    
+        vector<int> dp(n,-1);
         
         function<int(int)> fun=[&](int curr){
             
