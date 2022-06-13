@@ -6,7 +6,7 @@ public:
         
         vector<int> ans;
         for(int s:spells){
-            long f = (success+s-1)/s;
+            long f = success/s + (success%s !=0 );
             ans.push_back( portions.end() - lower_bound(portions.begin(),portions.end(),f));
         }
         return ans;
