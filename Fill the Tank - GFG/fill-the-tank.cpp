@@ -9,41 +9,37 @@ using namespace std;
 class Solution{
 
 public:
-    bool isPossible(list<int> *adj, int parent, int startNode, long long water, int* cap){
-        if(cap[startNode-1]>water){
-            return false;
-        }
-        long long waterRemaining=water-cap[startNode-1];
-        long long branches=adj[startNode].size();
-        if(parent!=-1){
-            branches--;
-        }
-        for(auto nei: adj[startNode]){
-            if(nei==parent){
-                continue;
-            }
-            if(isPossible(adj,startNode,nei,waterRemaining/branches,cap)==false){
-                return false;
-            }
-        }
-        return true;
-    }
     
     long long minimum_amount(vector<vector<int>> &E, int num, int start, int *cap){
-        list<int> adj[num+1];
+        list<int> graph[num+1];
         for(int i=0;i<E.size()-1;i++){
-            adj[E[i][0]].push_back(E[i][1]);
-            adj[E[i][1]].push_back(E[i][0]);
+            graph[E[i][0]].push_back(E[i][1]);
+            graph[E[i][1]].push_back(E[i][0]);
         }
-        long long res=0;
-        long long low=0;
-        for(int i=0;i<num;i++){
-            low+=cap[i];
-        }
-        long long high=1e18;
+        
+        function<bool(int,int,long long)> isPossible=[&](int node,int par,long long water){
+            // cout<<node<<" "<<par<<" "<<water<<endl;
+            
+            if( cap[node-1] > water) return false;
+            int branches = graph[node].size() - (par!=-1);
+            water -= cap[node-1];
+            
+            bool ok = true;
+            for(int child:graph[node]){
+                if(child == par) continue;
+                ok &= isPossible(child,node,water/branches);
+                if(ok == false) return false;
+            }
+            return ok;
+        };
+        
+        long long low = 1, high=1000000000000000000, res = -1;
         while(low<=high){
+            
             long long mid=(low+high)/2;
-            if(isPossible(adj,-1,start,mid,cap)==true){
+            // cout<<mid<<endl;
+            
+            if(isPossible(start,-1,mid)==true){
                 res=mid;
                 high=mid-1;
             }
