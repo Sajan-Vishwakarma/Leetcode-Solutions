@@ -11,9 +11,9 @@ class Solution{
 public:
     int matrixMultiplication(int n, int p[]){
         
-        vector<vector<int>> dp(n+1,vector<int>(n+1,1e9));
+        vector<vector<int>> dp(n,vector<int>(n,1e9));
     
-        for(int i=0;i<=n;i++) dp[i][i] = 0;
+        for(int i=0;i<n;i++) dp[i][i] = 0;
         
         for(int len = 2;len <= n;len++){
             for(int i=1;i<n;i++){
