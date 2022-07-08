@@ -9,7 +9,7 @@ public:
         function<bool(int,int)> fun=[&](int i,int j)->bool{
             if(i == n && j == m) return true;
             if(dp[i][j] != -1)return dp[i][j];
-            return dp[i][j]=((i<n&&s[i]==f[i+j])?fun(i+1,j):false)|((j<m&&t[j]==f[i+j])?fun(i,j+1):false);
+            return dp[i][j]=((i<n&&s[i]==f[i+j]&&fun(i+1,j))|(j<m&&t[j]==f[i+j]&&fun(i,j+1)));
         };
         
         return fun(0,0);        
