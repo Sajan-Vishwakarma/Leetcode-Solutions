@@ -8,15 +8,24 @@ class Solution{
     public:
     int dp[500][500];
     int helper(string& S,string& T,int i,int j){
-        if(i>=S.size()) return 500;
+        if(i>=S.size()) return 100000;
         if(j>=T.size()) return 1;
-        if(dp[i][j] !=-1) return dp[i][j];
-        int k=j;
-        for(;k<T.size();k++){
-            if(S[i]==T[k])break;
+        
+        if(dp[i][j] != -1) return dp[i][j];
+        
+        int ans = 1e7, k=j;
+        
+        for(k=j;k<T.size();k++){
+            if(S[i] == T[k]){
+                break;
+            }
         }
-        if(k==T.size())return 1;
-        return dp[i][j] = min(helper(S,T,i+1,j),1+helper(S,T,i+1,k+1));
+        if(k == T.size()) return 1;
+        
+        ans = min(ans, 1+helper(S,T,i+1,k+1));
+        ans = min(ans, helper(S,T,i+1,j));
+        
+        return dp[i][j] = ans;
     }
     int shortestUnSub(string S, string T) {
         memset(dp,-1,sizeof(dp));
