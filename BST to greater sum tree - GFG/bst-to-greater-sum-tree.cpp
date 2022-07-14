@@ -101,9 +101,8 @@ class Solution
     void fun(Node* root){
         if(root == NULL) return;
         fun(root->right);
-        int temp = root->data;
         sum += (root->data);
-        root->data = sum - temp;
+        root->data = sum -  root->data;
         fun(root->left);
     }
     void transformTree(struct Node *root){
