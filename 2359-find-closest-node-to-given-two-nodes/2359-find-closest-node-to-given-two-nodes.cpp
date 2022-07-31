@@ -12,9 +12,8 @@ public:
         
         const int INF = 1e7;
         
-        auto dijkstra=[&](int src){
+        auto dijkstra=[&](int src,vector<int> &dist){
             
-            vector<int> dist(n,INF);
             vector<bool> visited(n,false);
             
             dist[src] = 0;
@@ -40,8 +39,9 @@ public:
         };
         
         
-        vector<int> dist1 = dijkstra(node1);
-        vector<int> dist2 = dijkstra(node2);
+        vector<int> dist1(n,INF), dist2(n,INF);
+        dijkstra(node1,dist1);
+        dijkstra(node2,dist2);
         
         int ans = -1, mindist = INF;
         for(int i=0;i<n;i++){
