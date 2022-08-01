@@ -1,24 +1,28 @@
 class Solution {
 public:
-    map<pair<int,int>, pair<int,int>> dp;
-    pair<int,int> solve(int st, int en, vector<int> &a) {
-        if(st == en) {
-            return {a[st], 0}; // maxleaf, minSum
+    int mctFromLeafValues(vector<int>& arr) {
+        
+        int n = arr.size();
+        const int INF = 1e7;
+        
+        vector<vector<int>> maximum(n+1,vector<int>(n+1));
+        vector<vector<int>> product(n+1,vector<int>(n+1,INF));
+        
+        for(int i=0;i<n;i++) maximum[i][i] = arr[i], product[i][i] = 0;
+        
+        for(int len=2;len<=n;len++){            
+            for(int i=0;i<n;i++){
+                int j = i+len-1;
+                if(j >= n) break;
+                for(int k=i;k<j;k++){
+                    maximum[i][j] = max({maximum[i][j],maximum[i][k],maximum[k+1][j]});
+                }
+                for(int k=i;k<j;k++){
+                    product[i][j] = min(product[i][j], maximum[i][k]*maximum[k+1][j] + product[i][k]+product[k+1][j] );
+                }
+            }
         }
-        if(dp.count({st,en})) return dp[{st,en}];
-        int maxLeaf = INT_MIN, minSum = INT_MAX;
-        for(int j = st; j < en; j++) {
-            auto left = solve(st,j,a);
-            auto right = solve(j+1,en,a);
-            maxLeaf = max(left.first, right.first);
-            minSum = min(minSum, left.first * right.first + left.second + right.second);
-        }
-        return dp[{st,en}] = {maxLeaf, minSum};
-    }
-    
-    int mctFromLeafValues(vector<int>& a) {
-        // memset(dp,-1,sizeof(dp));
-        int n = a.size();
-        return solve(0,n-1,a).second;
+        
+        return product[0][n-1];    
     }
 };
