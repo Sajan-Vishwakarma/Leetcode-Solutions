@@ -1,6 +1,3 @@
-
-int dp[51][51][11];
-
 class Solution {
 public:
     const int mod = 1e9+7;
@@ -29,8 +26,8 @@ public:
             if( r1 && c1) sum += matrix[r1-1][c1-1];
             return sum;
         };
-        
-        memset(dp,0,sizeof(dp));
+
+        vector<vector<vector<int>>> dp(n+1,vector<vector<int>>(m+1,vector<int>(k+1)));
 
         function<int(int,int,int)> fun= [&](int x,int y,int k)->int{
 
