@@ -1,30 +1,33 @@
 class Solution {
 public:
+
     long long sellingWood(int n, int m, vector<vector<int>>& prices) {
         
-        vector<vector<int>> money(n+1,vector<int>(m+1));
-        for(auto &x:prices){
-            money[x[0]][x[1]] = x[2];
+        long long dp[n+1][m+1], cost[n+1][m+1];
+        memset(dp,-1,sizeof(dp));
+        memset(cost,0,sizeof(cost));
+
+        for(auto &v:prices){
+            int x=v[0], y=v[1];
+            cost[x][y] = v[2];
         }
-        
-        vector<vector<long long>> dp(n+1,vector<long long>(m+1,-1));
 
-        function<long long(int,int)> maxprice= [&](int H,int W)->long long{
-
-            auto &ans = dp[H][W];
-            if(ans != -1) return ans;
-            ans = money[H][W];
-
-            for(int h=1;h <= H/2; h++){
-                ans = max(ans, maxprice(h,W) + maxprice(H-h,W) );
+        function<long long(int,int)> fun= [&](int n,int m)->long long{
+            
+            auto &ans = dp[n][m];
+            if( ans != -1) return ans;
+            
+            ans = cost[n][m];
+            for(int i=1;i<n;i++){
+                ans = max(ans, fun(i,m) + fun(n-i,m));
             }
-
-            for(int c=1;c<=W/2;c++){
-                ans = max(ans, maxprice(H,c) + maxprice(H,W-c) );
+            for(int j=1;j<m;j++){
+                ans = max(ans, fun(n,j) + fun(n,m-j));
             }
             return ans;
         };
 
-        return maxprice(n,m);
+        return fun(n,m);
     }
+
 };
