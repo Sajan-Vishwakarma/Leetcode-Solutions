@@ -1,42 +1,38 @@
-int testcase;
-
 class TreeAncestor {
 public:
     
-    int limit,N;
+    int max_log, N;
     vector<vector<int>> dp;
     
     TreeAncestor(int n, vector<int>& parent) {
         
-        limit = log2(n)+1;
         N = n;
-        dp.resize(limit,vector<int>(n+1,n));
+        max_log = log2(n) + 1;
+        dp.resize(max_log);
+        
+        dp[0].resize(n+1,n);
         for(int i=0;i<n;i++){
             dp[0][i] = parent[i];
         }
         dp[0][0] = n;
-        for(int lvl=1;lvl<limit;lvl++){
+        
+        for(int j=1;j<max_log;j++){
+            dp[j].resize(n+1,n);
             for(int i=0;i<n;i++){
-                dp[lvl][i] = dp[lvl-1][dp[lvl-1][i]];
+                dp[j][i] = dp[j-1][dp[j-1][i]];
             }
-        }        
+        }
     }
     
     int getKthAncestor(int node, int k) {
-        
-        if(++testcase == 3){
-            return -1;
-        }
-        
-        for(int lvl = limit; lvl >=0 && k > 0;lvl--){
-            if(k >= (1<<lvl)){
-                node = dp[lvl][node];
-                k -= (1<<lvl);
+        int par = node;
+        for(int bit=max_log; bit>=0 && k; bit--){
+            if( k&(1<<bit)){
+                par = dp[bit][par];
             }
         }
-
-        if(node == N)   return -1;
-        return node;
+        if(par != N) return par;
+        return -1;
     }
 };
 
