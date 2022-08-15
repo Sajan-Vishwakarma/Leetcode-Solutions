@@ -5,7 +5,6 @@ public:
         const int inf = 1e9;
         int idx = (lower_bound(arr.begin(),arr.end(),x)) - arr.begin();
         
-        vector<int> res;
         int i = idx-1, j = idx;
         while(k--){
             int diff1 = inf, diff2 = inf;
@@ -13,15 +12,15 @@ public:
             if( j < arr.size()) diff2 = abs(arr[j] - x);
             
             if( diff1 <= diff2){
-                res.push_back(arr[i]);
                 i--;
             }
             else{
-                res.push_back(arr[j]);
                 j++;
             }
         }
-        sort(res.begin(),res.end());
+        
+        vector<int> res;
+        for(int it=i+1;it<j;it++) res.push_back(arr[it]);
         return res;
     }
 };
