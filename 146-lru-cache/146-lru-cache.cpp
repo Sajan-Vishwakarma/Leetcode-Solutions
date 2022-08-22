@@ -14,7 +14,7 @@ public:
     node *tail = new node(-1,-1);
     
     int cap;
-    map<int,node*> mp;
+    unordered_map<int,node*> mp;
     
     LRUCache(int capacity) {
         cap = capacity;
