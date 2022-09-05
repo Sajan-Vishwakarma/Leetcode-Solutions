@@ -1,19 +1,19 @@
 class Solution {
 public:
-    string smallestNumber(string pattern) {
+    string smallestNumber(string str) {
         string res; 
-        stack<int> s;
+    vector<int> s;
 
-        for (int i = 0; i <= pattern.length(); i++){
-            s.push(i + 1);
-
-            if (i == pattern.length() || pattern[i] == 'I'){
-                while (!s.empty()){
-                    res += to_string(s.top());
-                    s.pop();
-                }
+    for (int i = 0; i <= str.length(); i++){
+        s.push_back(i + 1);
+    
+        if (i == str.length() || str[i] == 'I'){
+            while (!s.empty()){
+                res += to_string(s.back());
+                s.pop_back();
             }
-        } 
-        return res;
+        }
+    } 
+    return res;
     }
 };
