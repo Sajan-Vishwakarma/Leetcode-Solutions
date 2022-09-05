@@ -1,19 +1,21 @@
 class Solution {
 public:
     string smallestNumber(string str) {
-        string res; 
-    vector<int> s;
-
-    for (int i = 0; i <= str.length(); i++){
-        s.push_back(i + 1);
-    
-        if (i == str.length() || str[i] == 'I'){
-            while (!s.empty()){
-                res += to_string(s.back());
-                s.pop_back();
+        int i=0;
+    string res="1";
+    char num='1';
+    for(auto ch:str){
+        if(ch=='I'){
+            res.push_back(++num);
+            i=res.size()-1;
+        }
+        else{
+            res.push_back(++num);
+            for(int k=res.size()-1;k>i;k--){
+                swap(res[k],res[k-1]);
             }
         }
-    } 
+    }
     return res;
     }
 };
